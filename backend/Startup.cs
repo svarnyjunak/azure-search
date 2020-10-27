@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -30,6 +31,17 @@ namespace MartinBartos.AzureCognitiveSearch
                 });
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            services.AddScoped<Microsoft.Azure.Search.SearchServiceClient>(provider =>
+            {
+                var config = provider.GetService<IConfiguration>();
+
+                var apiKey = config.GetValue<string>("ApiKey");
+                var serviceName = config.GetValue<string>("ServiceName");
+
+                var credentials = new Microsoft.Azure.Search.SearchCredentials(apiKey);
+                return new Microsoft.Azure.Search.SearchServiceClient(serviceName, credentials);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
