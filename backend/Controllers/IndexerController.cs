@@ -34,16 +34,22 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
         [HttpPost("create-index/{type}")]
         public async Task<ActionResult> PostCreateIndex(string type)
         {
-            var indexName = "test";
+            var indexName = AzureSearchService.IndexName;
 
             if (await client.Indexes.ExistsAsync(indexName))
             {
                 await client.Indexes.DeleteAsync(indexName);
             }
 
-            await GetStrategy(type).CreateIndexAsync(indexName, products);
+            await GetStrategy(type).CreateIndexAsync(products);
 
             return Ok();
+        }
+
+        [HttpGet("search")]
+        public async Task<IEnumerable<ProductModel>> Search(string type, string query)
+        {
+            return await GetStrategy(type).SearchAsync(query + "*");
         }
 
         private static IEnumerable<ProductModel> CreateProducts()

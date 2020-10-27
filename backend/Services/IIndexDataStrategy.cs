@@ -6,6 +6,7 @@ namespace MartinBartos.AzureCognitiveSearch.Services
 {
     public interface IIndexStrategy
     {
-        Task CreateIndexAsync(string indexName, IList<ProductModel> data);
+        Task CreateIndexAsync(IList<ProductModel> data);
+        Task<IEnumerable<ProductModel>> SearchAsync(string query);
     }
 }

@@ -9,7 +9,7 @@ namespace MartinBartos.AzureCognitiveSearch.Services
     public class AzureSearchService
     {
         private readonly SearchServiceClient client;
-        private readonly string indexName = "test";
+        public const string IndexName = "test";
 
         public AzureSearchService(SearchServiceClient client)
         {
@@ -21,16 +21,23 @@ namespace MartinBartos.AzureCognitiveSearch.Services
             // Create index
             var index = new Index
             {
-                Name = indexName,
+                Name = IndexName,
                 Fields = FieldBuilder.BuildForType<T>()
             };
 
             await client.Indexes.CreateAsync(index);
 
             // Index data.
-            var indexClient = client.Indexes.GetClient(indexName);
+            var indexClient = client.Indexes.GetClient(IndexName);
             var batch = new IndexBatch<T>(dataToIndex.Select(d => new IndexAction<T>(d)).ToList());
             indexClient.Documents.Index(batch);
+        }
+
+        public async Task<IEnumerable<T>> SearchAsync<T>(string query)
+        {
+            var indexSearch = client.Indexes.GetClient(IndexName);
+            var foundItems = await indexSearch.Documents.SearchAsync<T>(query);
+            return foundItems.Results.Select(d => d.Document);
         }
     }
 }

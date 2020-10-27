@@ -14,10 +14,9 @@ namespace MartinBartos.AzureCognitiveSearch.Services
 
         public AsciiFoldingIndexStrategy(SearchServiceClient client)
         {
-            azureSearch = new AzureSearchService(client);
-        }
+            azureSearch = new AzureSearchService(client);        }
 
-        public async Task CreateIndexAsync(string indexName, IList<ProductModel> data)
+        public async Task CreateIndexAsync(IList<ProductModel> data)
         {
             var dataToIndex = data
                 .Select(d => new ProductIndexModel
@@ -28,6 +27,16 @@ namespace MartinBartos.AzureCognitiveSearch.Services
                 .ToList();
 
             await azureSearch.CreateIndexAsync(dataToIndex);
+        }
+
+        public async Task<IEnumerable<ProductModel>> SearchAsync(string query)
+        {
+            var documents = await azureSearch.SearchAsync<ProductModel>(query);
+            return documents.Select(d => new ProductModel
+            {
+                Id = d.Id,
+                Name = d.Name
+            });
         }
 
         [SerializePropertyNamesAsCamelCase]

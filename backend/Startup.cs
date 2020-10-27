@@ -32,7 +32,7 @@ namespace MartinBartos.AzureCognitiveSearch
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            services.AddScoped<Microsoft.Azure.Search.SearchServiceClient>(provider =>
+            services.AddSingleton<Microsoft.Azure.Search.SearchServiceClient>(provider =>
             {
                 var config = provider.GetService<IConfiguration>();
 
