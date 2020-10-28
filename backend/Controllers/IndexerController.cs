@@ -57,6 +57,26 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
             yield return new ProductModel { Name = "Šála" };
             yield return new ProductModel { Name = "Čepice" };
             yield return new ProductModel { Name = "Rukavice" };
+            yield return new ProductModel { Name = "Trenýrky" };
+            yield return new ProductModel { Name = "Slipy" };
+            yield return new ProductModel { Name = "Ponožky" };
+            yield return new ProductModel { Name = "Tílko" };
+            yield return new ProductModel { Name = "Tričko" };
+            yield return new ProductModel { Name = "Mikina" };
+            yield return new ProductModel { Name = "Svetr" };
+            yield return new ProductModel { Name = "Letní bunda" };
+            yield return new ProductModel { Name = "Zimní bunda" };
+            yield return new ProductModel { Name = "Lyžařská bunda" };
+            yield return new ProductModel { Name = "Nepromokavá bunda" };
+            yield return new ProductModel { Name = "Tepláky" };
+            yield return new ProductModel { Name = "Volnočasové kalhoty" };
+            yield return new ProductModel { Name = "Džíny" };
+            yield return new ProductModel { Name = "Kraťasy" };
+            yield return new ProductModel { Name = "Šátek" };
+            yield return new ProductModel { Name = "Kšiltovka" };
+            yield return new ProductModel { Name = "Plavky" };
+            yield return new ProductModel { Name = "Sukně" };
+            yield return new ProductModel { Name = "Šaty" };
         }
 
         private IIndexStrategy GetStrategy(string type)
