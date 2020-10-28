@@ -1,7 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <div>
+      <p>
+        Nejdříve je potřeba oblečení zaindexovat, to lze provést pomocí různých
+        analyzérů:
+      </p>
+
+      <h2>StandardLucene</h2>
+      <p>
+        Pokud chcete vyzkoušet defaultní chování zaindexujte pomocí
+        StandardLucene
+        <a href="#" v-on:click="indexData($event, 'basic')">zaindexovat</a>.
+      </p>
+
+      <h2>StandardAsciiFoldingLucene</h2>
+      <p>
+        Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku zaindexujte pomocí
+        StandardAsciiFoldingLucene
+        <a href="#" v-on:click="indexData($event, 'ascii-folding')">zaindexovat</a>.
+      </p>
+    </div>
     <div class="search-box">
+      <div>Vyhledejte oblečení (např. tričko)</div>
       <Search v-on:search="search" />
       <ProductList v-bind:products="products" />
     </div>
@@ -24,6 +44,13 @@ export default {
     };
   },
   methods: {
+    indexData: function (e, analyzerType) {
+      e.preventDefault();
+
+      fetch(`/api/indexers/create-index/${analyzerType}`, {
+        method: "POST",
+      });
+    },
     search: function (query) {
       if (query && query.length > 2) {
         fetch(`/api/indexers/search?type=ascii-folding&query=${query}`)
@@ -42,13 +69,14 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .search-box {
-  width: 200px;
+  width: 300px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
