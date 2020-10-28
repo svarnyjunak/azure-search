@@ -12,13 +12,46 @@
         StandardLucene
         <a href="#" v-on:click="indexData($event, 'basic')">zaindexovat</a>.
       </p>
+      
+      <pre>
+        <code lang="#">
+          [SerializePropertyNamesAsCamelCase]
+          class ProductIndexModel
+          {
+              [Key]
+              [IsFilterable, IsSortable]
+              public string Id { get; set; }
+
+              [IsFilterable, IsSortable, IsSearchable]
+              public string Name { get; set; }
+          }
+        </code>
+      </pre>
 
       <h2>StandardAsciiFoldingLucene</h2>
       <p>
-        Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku zaindexujte pomocí
-        StandardAsciiFoldingLucene
-        <a href="#" v-on:click="indexData($event, 'ascii-folding')">zaindexovat</a>.
+        Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku
+        zaindexujte pomocí StandardAsciiFoldingLucene
+        <a href="#" v-on:click="indexData($event, 'ascii-folding')"
+          >zaindexovat</a
+        >.
       </p>
+
+      <pre>
+        <code lang="C#">
+          [SerializePropertyNamesAsCamelCase]
+          class ProductIndexModel
+          {
+              [Key]
+              [IsFilterable, IsSortable]
+              public string Id { get; set; }
+
+              [IsFilterable, IsSortable, IsSearchable]
+              <span class="code--higlighted">[Analyzer(AnalyzerName.AsString.StandardAsciiFoldingLucene)]</span>
+              public string Name { get; set; }
+          }
+        </code>
+      </pre>
     </div>
     <div class="search-box">
       <div>Vyhledejte oblečení (např. tričko)</div>
@@ -29,12 +62,14 @@
 </template>
 
 <script>
+import VueEmbedGist from "vue-embed-gist";
 import Search from "./components/Search.vue";
 import ProductList from "./components/ProductList.vue";
 
 export default {
   name: "App",
   components: {
+    VueEmbedGist,
     Search,
     ProductList,
   },
@@ -70,7 +105,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -81,5 +116,9 @@ export default {
   margin-right: auto;
   display: flex;
   flex-direction: column;
+}
+
+.code--higlighted {
+  background: yellow;
 }
 </style>
