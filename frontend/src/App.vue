@@ -1,62 +1,69 @@
 <template>
   <div id="app">
-    <div>
-      <p>
-        Nejdříve je potřeba oblečení zaindexovat, to lze provést pomocí různých
-        analyzérů:
-      </p>
+    <h1>Vyhledávání pomocí Azure Cognitive Search</h1>
+    <div class="main">
+      <div>
+        <p>
+          Nejdříve je potřeba oblečení zaindexovat, to lze provést pomocí různých
+          analyzérů:
 
-      <h2>StandardLucene</h2>
-      <p>
-        Pokud chcete vyzkoušet defaultní chování zaindexujte pomocí
-        StandardLucene
-        <a href="#" v-on:click="indexData($event, 'basic')">zaindexovat</a>.
-      </p>
+        <h2>StandardLucene</h2>
+        <p>
+          Pokud chcete vyzkoušet defaultní chování zaindexujte pomocí
+          StandardLucene.
 
-      <pre>
-        <code lang="#">
-          [SerializePropertyNamesAsCamelCase]
-          class ProductIndexModel
-          {
-              [Key]
-              [IsFilterable, IsSortable]
-              public string Id { get; set; }
+          <pre>
+            <code lang="#">
+[SerializePropertyNamesAsCamelCase]
+class ProductIndexModel
+{
+    [Key]
+    [IsFilterable, IsSortable]
+    public string Id { get; set; }
 
-              [IsFilterable, IsSortable, IsSearchable]
-              public string Name { get; set; }
-          }
-        </code>
-      </pre>
+    [IsFilterable, IsSortable, IsSearchable]
+    public string Name { get; set; }
+}
+            </code>
+          </pre>
 
-      <h2>StandardAsciiFoldingLucene</h2>
-      <p>
-        Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku
-        zaindexujte pomocí StandardAsciiFoldingLucene
-        <a href="#" v-on:click="indexData($event, 'ascii-folding')"
-          >zaindexovat</a
-        >.
-      </p>
+          <a href="#" class="pure-button pure-button-primary" v-on:click="indexData($event, 'basic')">Použít StandardLucene</a>
+        </p>
 
-      <pre>
-        <code lang="C#">
-          [SerializePropertyNamesAsCamelCase]
-          class ProductIndexModel
-          {
-              [Key]
-              [IsFilterable, IsSortable]
-              public string Id { get; set; }
+        <h2>StandardAsciiFoldingLucene</h2>
+        <p>
+          Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku
+          zaindexujte pomocí StandardAsciiFoldingLucene.
 
-              [IsFilterable, IsSortable, IsSearchable]
-              <span class="code--higlighted">[Analyzer(AnalyzerName.AsString.StandardAsciiFoldingLucene)]</span>
-              public string Name { get; set; }
-          }
-        </code>
-      </pre>
-    </div>
-    <div class="search-box">
-      <div>Vyhledejte oblečení (např. tričko)</div>
-      <Search v-on:search="search" />
-      <ProductList v-bind:products="products" />
+          <pre>
+            <code lang="C#">
+[SerializePropertyNamesAsCamelCase]
+class ProductIndexModel
+{
+    [Key]
+    [IsFilterable, IsSortable]
+    public string Id { get; set; }
+    
+    [IsFilterable, IsSortable, IsSearchable]
+    <span class="code--higlighted">[Analyzer(AnalyzerName.AsString.StandardAsciiFoldingLucene)]</span>
+    public string Name { get; set; }
+}
+            </code>
+          </pre>
+
+        <a
+            href="#"
+            class="pure-button pure-button-primary"
+            v-on:click="indexData($event, 'ascii-folding')"
+            >Použít StandardAsciiFoldingLucene</a
+          >
+        </p>
+      </div>
+      <div class="search-box">
+        <div>Vyhledejte oblečení (např. tričko)</div>
+        <Search v-on:search="search" />
+        <ProductList v-bind:products="products" />
+      </div>
     </div>
   </div>
 </template>
@@ -103,7 +110,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 20px;
+  margin: 20px;
+}
+
+pre {
+  margin: 0;
+}
+
+.main {
   display: grid;
   grid-template-columns: 50% 50%;
 }
