@@ -12,7 +12,7 @@
         StandardLucene
         <a href="#" v-on:click="indexData($event, 'basic')">zaindexovat</a>.
       </p>
-      
+
       <pre>
         <code lang="#">
           [SerializePropertyNamesAsCamelCase]
@@ -62,14 +62,12 @@
 </template>
 
 <script>
-import VueEmbedGist from "vue-embed-gist";
 import Search from "./components/Search.vue";
 import ProductList from "./components/ProductList.vue";
 
 export default {
   name: "App",
   components: {
-    VueEmbedGist,
     Search,
     ProductList,
   },
