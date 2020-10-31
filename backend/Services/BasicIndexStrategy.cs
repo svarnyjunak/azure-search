@@ -34,12 +34,7 @@ namespace MartinBartos.AzureCognitiveSearch.Services
 
         public async Task<IEnumerable<ProductModel>> SearchAsync(string query)
         {
-            var documents = await azureSearch.SearchAsync<ProductModel>(query);
-            return documents.Select(d => new ProductModel
-            {
-                Id = d.Id,
-                Name = d.Name
-            });
+            return await azureSearch.SearchAsync<ProductModel>(query);
         }
 
         [SerializePropertyNamesAsCamelCase]
