@@ -9,9 +9,10 @@
 
         <h2>StandardLucene</h2>
         <p>
-          Pokud chcete vyzkoušet defaultní chování zaindexujte pomocí
-          StandardLucene.
-
+          Analyzer můžete na property přidat pomocí atributu <pre class="code--inline">AnalyzerAttribute</pre>, 
+          pokud žádný neuvedete, automaticky se použíje <pre class="code--inline">StandardLucene</pre> analyzer. 
+          Model indexu pak bude vypadat takto:
+      
           <pre><code lang="#">[SerializePropertyNamesAsCamelCase]
 class ProductIndexModel
 {
@@ -28,8 +29,7 @@ class ProductIndexModel
 
         <h2>StandardAsciiFoldingLucene</h2>
         <p>
-          Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku
-          zaindexujte pomocí StandardAsciiFoldingLucene.
+          Pokud chcete vyhledávat bez diakritiky můžete použít <pre class="code--inline">StandardAsciiFoldingLucene</pre> analyzer:
 
           <pre><code lang="C#">[SerializePropertyNamesAsCamelCase]
 class ProductIndexModel
@@ -108,6 +108,12 @@ export default {
 pre {
   padding: .5em;
   background: rgb(235, 233, 233);
+}
+
+.code--inline {
+  display: inline;
+  padding: 0;
+  margin: 0;
 }
 
 .main {
