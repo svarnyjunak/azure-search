@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Vyhledávání pomocí Azure Cognitive Search</h1>
     <div class="main">
-      <div>
+      <div class="article">
         <p>
           Nejdříve je potřeba oblečení zaindexovat, to lze provést pomocí různých
           analyzérů:
@@ -97,6 +97,10 @@ export default {
 </script>
 
 <style>
+html{
+  overflow: hidden;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -105,8 +109,15 @@ export default {
   margin: 20px;
 }
 
+.article {
+  padding: 1em;
+  overflow-y: auto;
+  height: calc(100% - 12em);
+  border: 1px solid rgb(235, 233, 233);
+}
+
 pre {
-  padding: .5em;
+  padding: 1em;
   background: rgb(235, 233, 233);
 }
 
