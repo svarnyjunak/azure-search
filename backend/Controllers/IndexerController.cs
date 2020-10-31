@@ -26,8 +26,8 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
         {
             return new List<IndexerModel>
             {
-                new IndexerModel{ Name = "basic", Title = "Basic" },
-                new IndexerModel{ Name = "ascii-folding", Title = "Ascii folding" }
+                new IndexerModel{ Name = "standard-lucene", Title = "Standard Lucene" },
+                new IndexerModel{ Name = "standard-ascii-folding-lucene", Title = "Standard ascii folding Lucene" }
             };
         }
 
@@ -83,10 +83,10 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
         {
             switch (type)
             {
-                case "basic":
-                    return new BasicIndexStrategy(client);
-                case "ascii-folding":
-                    return new AsciiFoldingIndexStrategy(client);
+                case "standard-lucene":
+                    return new StandardLuceneStrategy(client);
+                case "standard-ascii-folding-lucene":
+                    return new StandardAsciiFoldingLuceneStrategy(client);
                 default:
                     throw new NotImplementedException();
             }

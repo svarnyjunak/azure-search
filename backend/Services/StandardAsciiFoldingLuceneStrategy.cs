@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,16 +8,13 @@ using Microsoft.Azure.Search.Models;
 
 namespace MartinBartos.AzureCognitiveSearch.Services
 {
-    public class BasicIndexStrategy : IIndexStrategy
+    public class StandardAsciiFoldingLuceneStrategy : IIndexStrategy
     {
         private readonly AzureSearchService azureSearch;
-        private readonly SearchServiceClient client;
 
-        public BasicIndexStrategy(SearchServiceClient client)
+        public StandardAsciiFoldingLuceneStrategy(SearchServiceClient client)
         {
-            azureSearch = new AzureSearchService(client);
-            this.client = client;
-        }
+            azureSearch = new AzureSearchService(client);        }
 
         public async Task CreateIndexAsync(IList<ProductModel> data)
         {
@@ -45,6 +42,7 @@ namespace MartinBartos.AzureCognitiveSearch.Services
             public string Id { get; set; }
 
             [IsFilterable, IsSortable, IsSearchable]
+            [Analyzer(AnalyzerName.AsString.StandardAsciiFoldingLucene)]
             public string Name { get; set; }
         }
     }

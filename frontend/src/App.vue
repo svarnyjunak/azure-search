@@ -24,7 +24,7 @@ class ProductIndexModel
     public string Name { get; set; }
 }</code></pre>
 
-          <a href="#" class="pure-button pure-button-primary" v-on:click="indexData($event, 'basic')">Použít StandardLucene</a>
+          <a href="#" class="pure-button pure-button-primary" v-on:click="indexData($event, 'standard-lucene')">Použít StandardLucene</a>
         </p>
 
         <h2>StandardAsciiFoldingLucene</h2>
@@ -46,7 +46,7 @@ class ProductIndexModel
         <a
             href="#"
             class="pure-button pure-button-primary"
-            v-on:click="indexData($event, 'ascii-folding')"
+            v-on:click="indexData($event, 'standard-ascii-folding-lucene')"
             >Použít StandardAsciiFoldingLucene</a
           >
         </p>
@@ -85,7 +85,7 @@ export default {
     },
     search: function (query) {
       if (query && query.length > 2) {
-        fetch(`/api/indexers/search?type=ascii-folding&query=${query}`)
+        fetch(`/api/indexers/search?type=standard-lucene&query=${query}`)
           .then((response) => response.json())
           .then((data) => (this.products = data));
       } else {
