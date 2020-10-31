@@ -12,9 +12,7 @@
           Pokud chcete vyzkoušet defaultní chování zaindexujte pomocí
           StandardLucene.
 
-          <pre>
-            <code lang="#">
-[SerializePropertyNamesAsCamelCase]
+          <pre><code lang="#">[SerializePropertyNamesAsCamelCase]
 class ProductIndexModel
 {
     [Key]
@@ -23,9 +21,7 @@ class ProductIndexModel
 
     [IsFilterable, IsSortable, IsSearchable]
     public string Name { get; set; }
-}
-            </code>
-          </pre>
+}</code></pre>
 
           <a href="#" class="pure-button pure-button-primary" v-on:click="indexData($event, 'basic')">Použít StandardLucene</a>
         </p>
@@ -35,9 +31,7 @@ class ProductIndexModel
           Pokud chcete vyzkoušet defaultní chování, které ignoruje diakritiku
           zaindexujte pomocí StandardAsciiFoldingLucene.
 
-          <pre>
-            <code lang="C#">
-[SerializePropertyNamesAsCamelCase]
+          <pre><code lang="C#">[SerializePropertyNamesAsCamelCase]
 class ProductIndexModel
 {
     [Key]
@@ -47,9 +41,7 @@ class ProductIndexModel
     [IsFilterable, IsSortable, IsSearchable]
     <span class="code--higlighted">[Analyzer(AnalyzerName.AsString.StandardAsciiFoldingLucene)]</span>
     public string Name { get; set; }
-}
-            </code>
-          </pre>
+}</code></pre>
 
         <a
             href="#"
@@ -114,7 +106,8 @@ export default {
 }
 
 pre {
-  margin: 0;
+  padding: .5em;
+  background: rgb(235, 233, 233);
 }
 
 .main {
