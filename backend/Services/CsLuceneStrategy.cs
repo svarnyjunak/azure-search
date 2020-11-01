@@ -8,18 +8,18 @@ using Microsoft.Azure.Search.Models;
 
 namespace MartinBartos.AzureCognitiveSearch.Services
 {
-    public class StandardAsciiFoldingLuceneStrategy : IIndexStrategy
+    public class CsLuceneStrategy : IIndexStrategy
     {
         private readonly AzureSearchService azureSearch;
 
-        public StandardAsciiFoldingLuceneStrategy(SearchServiceClient client)
+        public CsLuceneStrategy(SearchServiceClient client)
         {
             azureSearch = new AzureSearchService(client);
         }
 
         public async Task CreateIndexAsync(IList<ProductModel> data)
         {
-            var dataToIndex = data
+             var dataToIndex = data
                 .Select(d => new ProductIndexModel
                 {
                     Id = d.Id,
@@ -43,7 +43,7 @@ namespace MartinBartos.AzureCognitiveSearch.Services
             public string Id { get; set; }
 
             [IsFilterable, IsSortable, IsSearchable]
-            [Analyzer(AnalyzerName.AsString.StandardAsciiFoldingLucene)]
+            [Analyzer(AnalyzerName.AsString.CsLucene)]
             public string Name { get; set; }
         }
     }

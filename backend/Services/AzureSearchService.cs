@@ -36,7 +36,9 @@ namespace MartinBartos.AzureCognitiveSearch.Services
         public async Task<IEnumerable<T>> SearchAsync<T>(string query)
         {
             var indexSearch = client.Indexes.GetClient(IndexName);
-            var foundItems = await indexSearch.Documents.SearchAsync<T>(query);
+            var foundItems = await indexSearch.Documents.SearchAsync<T>(query, new SearchParameters{ 
+                QueryType = QueryType.Full
+             });
             return foundItems.Results.Select(d => d.Document);
         }
     }

@@ -29,7 +29,8 @@ class ProductIndexModel
 
         <h2>StandardAsciiFoldingLucene</h2>
         <p>
-          Pokud chcete vyhledávat bez diakritiky můžete použít <pre class="code--inline">StandardAsciiFoldingLucene</pre> analyzer:
+          Pokud chcete vyhledávat bez diakritiky můžete použít <pre class="code--inline">StandardAsciiFoldingLucene</pre> analyzer, 
+          zkuste pak do vyhledávání zadata "cepice" a ve výsledcích se zobrazí "čepice". 
 
           <pre><code lang="C#">[SerializePropertyNamesAsCamelCase]
 class ProductIndexModel
@@ -50,6 +51,32 @@ class ProductIndexModel
             >Použít StandardAsciiFoldingLucene</a
           >
         </p>
+
+        <h2>CsLucene</h2>
+        <p>
+            Pro indexování českého textu můžete použít CsLucene analyzer, 
+            zkuste do vyhledávání zadat slovo "šátky" a ve vyhledávání se zobrazí i slovo "šátek". 
+
+            <pre><code lang="C#">[SerializePropertyNamesAsCamelCase]
+class ProductIndexModel
+{
+    [Key]
+    [IsFilterable, IsSortable]
+    public string Id { get; set; }
+    
+    [IsFilterable, IsSortable, IsSearchable]
+    <span class="code--higlighted">[Analyzer(AnalyzerName.AsString.CsLucene)]</span>
+    public string Name { get; set; }
+}</code></pre>
+
+        <a
+            href="#"
+            class="pure-button pure-button-primary"
+            v-on:click="indexData($event, 'cs-lucene')"
+            >Použít CsLucene</a
+          >
+        </p>
+
       </div>
       <div class="search-box">
         <div>Vyhledejte oblečení (např. tričko)</div>
@@ -97,7 +124,7 @@ export default {
 </script>
 
 <style>
-html{
+html {
   overflow: hidden;
 }
 
@@ -112,7 +139,7 @@ html{
 .article {
   padding: 1em;
   overflow-y: auto;
-  height: calc(100% - 12em);
+  height: calc(100vh - 100px);
   border: 1px solid rgb(235, 233, 233);
 }
 

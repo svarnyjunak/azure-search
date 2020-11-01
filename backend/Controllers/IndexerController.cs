@@ -27,7 +27,8 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
             return new List<IndexerModel>
             {
                 new IndexerModel{ Name = "standard-lucene", Title = "Standard Lucene" },
-                new IndexerModel{ Name = "standard-ascii-folding-lucene", Title = "Standard ascii folding Lucene" }
+                new IndexerModel{ Name = "standard-ascii-folding-lucene", Title = "Standard ascii folding Lucene" },
+                new IndexerModel{ Name = "cs-lucene", Title = "CS Lucene"}
             };
         }
 
@@ -49,7 +50,7 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
         [HttpGet("search")]
         public async Task<IEnumerable<ProductModel>> Search(string type, string query)
         {
-            return await GetStrategy(type).SearchAsync(query + "*");
+            return await GetStrategy(type).SearchAsync(query);
         }
 
         private static IEnumerable<ProductModel> CreateProducts()
@@ -87,6 +88,8 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
                     return new StandardLuceneStrategy(client);
                 case "standard-ascii-folding-lucene":
                     return new StandardAsciiFoldingLuceneStrategy(client);
+                case "cs-lucene":
+                    return new CsLuceneStrategy(client);
                 default:
                     throw new NotImplementedException();
             }
