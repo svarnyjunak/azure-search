@@ -14,11 +14,13 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
     public class IndexerController : ControllerBase
     {
         private readonly SearchServiceClient client;
+        private AzureSearchService azureSearch;
         private static IList<ProductModel> products = CreateProducts().ToList();
 
         public IndexerController(SearchServiceClient client)
         {
             this.client = client;
+            this.azureSearch = new AzureSearchService(client);
         }
 
         [HttpGet]
@@ -48,9 +50,15 @@ namespace MartinBartos.AzureCognitiveSearch.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IEnumerable<ProductModel>> Search(string type, string query)
+        public async Task<IEnumerable<ProductModel>> Search(string query)
         {
-            return await GetStrategy(type).SearchAsync(query);
+            return await azureSearch.SearchAsync(query);
+        }
+
+        [HttpGet("suggest")]
+        public async Task<IEnumerable<ProductModel>> Suggest(string query)
+        {
+            return await azureSearch.SuggestAsync(query);
         }
 
         private static IEnumerable<ProductModel> CreateProducts()

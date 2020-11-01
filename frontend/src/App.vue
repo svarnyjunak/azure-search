@@ -79,9 +79,15 @@ class ProductIndexModel
 
       </div>
       <div class="search-box">
+        <h2>Search</h2>
         <div>Vyhledejte oblečení (např. tričko)</div>
         <Search v-on:search="search" />
-        <ProductList v-bind:products="products" />
+        <ProductList v-bind:products="foundProducts" />
+
+        <h2>Suggester</h2>
+        <div>Vyhledejte oblečení (např. tričko)</div>
+        <Search v-on:search="suggest" />
+        <ProductList v-bind:products="suggestedProducts" />
       </div>
     </div>
   </div>
@@ -99,7 +105,8 @@ export default {
   },
   data: function () {
     return {
-      products: [],
+      foundProducts: [],
+      suggestedProducts: []
     };
   },
   methods: {
@@ -112,11 +119,20 @@ export default {
     },
     search: function (query) {
       if (query && query.length > 2) {
-        fetch(`/api/indexers/search?type=standard-lucene&query=${query}`)
+        fetch(`/api/indexers/search?query=${query}`)
           .then((response) => response.json())
-          .then((data) => (this.products = data));
+          .then((data) => (this.foundProducts = data));
       } else {
-        this.products = [];
+        this.foundProducts = [];
+      }
+    },
+    suggest: function (query) {
+      if (query && query.length > 2) {
+        fetch(`/api/indexers/suggest?query=${query}`)
+          .then((response) => response.json())
+          .then((data) => (this.suggestedProducts = data));
+      } else {
+        this.suggestedProducts = [];
       }
     },
   },

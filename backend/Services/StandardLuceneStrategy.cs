@@ -32,13 +32,8 @@ namespace MartinBartos.AzureCognitiveSearch.Services
             await azureSearch.CreateIndexAsync(dataToIndex);
         }
 
-        public async Task<IEnumerable<ProductModel>> SearchAsync(string query)
-        {
-            return await azureSearch.SearchAsync<ProductModel>(query);
-        }
-
         [SerializePropertyNamesAsCamelCase]
-        class ProductIndexModel
+        class ProductIndexModel : IProductModel
         {
             [Key]
             [IsFilterable, IsSortable]
